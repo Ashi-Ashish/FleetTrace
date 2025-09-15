@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgis/postgis:16-3.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-fleet}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required (set it in .env)}
+      POSTGRES_DB: ${POSTGRES_DB:-fleetdb}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  kafka:
+    image: redpandadata/redpanda:v23.3.10
+    command: redpanda start --overprovisioned --smp 1 --memory 1G --reserve-memory 0M --node-id 0 --check=false
+    ports:
+      - "9092:9092"
+      - "9644:9644"
+
+volumes:
+  pgdata:
