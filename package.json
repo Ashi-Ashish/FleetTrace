@@ -8,7 +8,9 @@
     "test": "tests"
   },
   "scripts": {
-    "schema:validate": "ajv -s contracts/telematics_event.schema.json -d 'contracts/fixtures/*.json' --spec=draft2020 --strict=true --errors=text -c ajv-formats"
+    "schema:validate": "ajv -s contracts/telematics_event.schema.json -d 'contracts/fixtures/valid/*.json' --spec=draft2020 --strict=true --errors=text -c ajv-formats",
+    "schema:negatives": "ajv test -s contracts/telematics_event.schema.json -d 'contracts/fixtures/invalid/*.json' --spec=draft2020 -c ajv-formats --invalid",
+    "schema:check": "npm run -s schema:validate && npm run -s schema:negatives"
   },
   "repository": {
     "type": "git",
