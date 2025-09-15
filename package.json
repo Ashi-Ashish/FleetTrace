@@ -1,0 +1,30 @@
+{
+  "name": "fleettrace",
+  "version": "1.0.0",
+  "description": "1. Copy the example environment file and set a strong password (do not commit your .env):",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "schema:validate": "ajv -s contracts/telematics_event.schema.json -d 'contracts/fixtures/*.json' --spec=draft2020 --strict=true --errors=text -c ajv-formats"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ashi-Ashish/FleetTrace.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Ashi-Ashish/FleetTrace/issues"
+  },
+  "homepage": "https://github.com/Ashi-Ashish/FleetTrace#readme",
+  "devDependencies": {
+    "ajv": "^8.17.1",
+    "ajv-cli": "^5.0.0",
+    "ajv-formats": "^3.0.1"
+  }
+}
