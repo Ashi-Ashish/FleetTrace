@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "event_id": "b8d2a6cc-6b8f-4f86-8f7e-6a0f7a2e3b8f",
+  "vehicle_id": "veh-001",
+  "driver_id": "drv-001",
+  "ts": "2025-09-15T12:34:56Z",
+  "lat": 43.4516,
+  "lon": -80.4925,
+  "speed_kph": 62.4,
+  "heading_deg": 180.0,
+  "accel_ms2": -0.5,
+  "fuel_pct": 78.0,
+  "odometer_km": 12435.7,
+  "meta": { "route_id": "rt-kwc-01", "source": "simulator" }
+}
