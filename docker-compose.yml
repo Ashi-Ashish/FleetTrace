@@ -1,4 +1,3 @@
-version: "3.9"
 services:
   postgres:
     image: postgis/postgis:16-3.4
@@ -17,6 +16,33 @@ services:
     ports:
       - "9092:9092"
       - "9644:9644"
+
+  kafka-init:
+    image: redpandadata/redpanda:v23.3.10
+    depends_on: [kafka]
+    entrypoint: ["/bin/sh","-c"]
+    command: |
+      for i in $(seq 1 30); do
+        rpk cluster info --brokers kafka:9092 >/dev/null 2>&1 && break
+        echo "waiting for kafka..."; sleep 2
+      done
+      rpk topic create telematics.events telematics.dlq --brokers kafka:9092 || true
+
+  streamworker:
+    build:
+      context: .
+      dockerfile: src/StreamWorker/Dockerfile
+    depends_on:
+      - kafka
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # Optional: override from env if you want
+      # Worker__BootstrapServers: kafka:9092
+      # Worker__InputTopic: telematics.events
+      # Worker__DlqTopic: telematics.dlq
+      # Worker__GroupId: fleettrace-worker
+      # Worker__SchemaPath: contracts/telematics_event.schema.json
+    restart: unless-stopped
 
 volumes:
   pgdata:

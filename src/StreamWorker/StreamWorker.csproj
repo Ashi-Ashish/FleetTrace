@@ -17,4 +17,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Shared.Contracts\Shared.csproj" />
   </ItemGroup>
+
+  <!-- Copy JSON schema contracts to output so relative path `contracts/...` works locally -->
+  <ItemGroup>
+    <None Include="..\..\contracts\**\*.*">
+      <Link>contracts\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
